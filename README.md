@@ -1,47 +1,45 @@
-# Pink Riot — Animated ChatGPT Pet
+# Pink Riot
 
-![Official Pink Riot character design](assets/pink-riot-master-design.png)
+[Русский](README.ru.md) · **Created entirely using ChatGPT & Codex**
 
-**An animated anime-punk companion for ChatGPT Pets, created entirely using ChatGPT, with Codex used for asset assembly and quality checks.** This repository contains the actual working pet assets, not a mockup or an independently generated replacement.
+![Pink Riot — original approved character design](assets/pink-riot-master-design.png)
 
-[**Download the ready-to-upload WebP**](Pink-Riot-web-upload.webp) · [PNG alternative](Pink-Riot-web-upload.png) · [Русская инструкция](README.ru.md)
+An anime punk companion with black-and-pink twin tails, platform boots and attitude. The creator has confirmed that Pink Riot works in ChatGPT.
 
-![Real idle animation](previews/idle.gif) ![Real wave animation](previews/waving.gif) ![Real jump animation](previews/jumping.gif)
+### Download → upload → meet Pink Riot
 
-## Install in ChatGPT
+**[Download the pet (WebP)](https://github.com/Brut992/pink-riot-chatgpt-pet/releases/download/v1.0.0/Pink-Riot-web-upload.webp)** · [PNG alternative](https://github.com/Brut992/pink-riot-chatgpt-pet/releases/download/v1.0.0/Pink-Riot-web-upload.png) · [All files](https://github.com/Brut992/pink-riot-chatgpt-pet/releases/tag/v1.0.0)
 
-1. In ChatGPT, open **Settings → Personalization → Pet → Select pet → Upload pet** (if available for your account).
-2. Download **[Pink-Riot-web-upload.webp](Pink-Riot-web-upload.webp)** or the [PNG version](Pink-Riot-web-upload.png).
-3. Upload **one** of these files. Do **not** upload the extended v2 sheet into the standard web uploader.
-4. Select Pink Riot and enjoy. The finished pet has been successfully imported and tested in ChatGPT by its creator.
+1. Download **one** of the two pet files above.
+2. In ChatGPT, open **Settings → Personalization → Pet → Select pet → Upload pet** (where available).
+3. Upload the file and select **Pink Riot**.
 
-## What's included
+The upload sheet is transparent, **1536 × 1872**, below 20 MiB. See the [official Pets guide](https://learn.chatgpt.com/docs/pets). The separate taller v2 atlas is for compatible desktop tooling; use the download above for the web uploader.
 
-| File | Purpose |
-|---|---|
-| `Pink-Riot-web-upload.webp` / `.png` | Transparent 1536 × 1872 sheet for ChatGPT web upload; choose one |
-| `spritesheet.webp`, `spritesheet-v2.png`, `pet.json` | Extended 1536 × 2288 v2 package with look directions |
-| `previews/` | Actual animated GIF/WebP clips for all nine animation states and look directions |
-| `preview.html` | Local interactive animation viewer (open after downloading the repo) |
-| `contact-sheet.png`, `look-directions.png` | Full animation overview and 16 look directions |
-| `sources/frames/`, `sources/references/`, `sources/prompts/` | Raster source frames, original character master and creation prompts |
+### Real animation previews
 
-The nine states comprise idle, movement right, movement left, wave, jump, failure, waiting, working/thinking and review: **57 animation frames** in total. The v2 package also supplies **16 look directions**. The web sheet has 9 rows; the extended v2 sheet has 11 rows.
+| Idle | Wave | Jump |
+| :---: | :---: | :---: |
+| ![Idle](previews/idle.gif) | ![Wave](previews/waving.gif) | ![Jump](previews/jumping.gif) |
 
-## Preview
+![Thinking](previews/running.gif) ![Look directions](previews/look.gif)
 
-![Actual movement](previews/running.gif) ![Actual waiting](previews/waiting.gif) ![Actual look directions](previews/look.gif)
+These are exports of the actual pet frames. [All nine animations and gaze previews](previews/) include WebP versions that preserve soft transparency. Thinking is the `running` task state; there is no separate Happy state.
 
-For finer transparency and edges, use the matching lossless WebP clips in [`previews/`](previews/). GIF is provided for convenient GitHub display.
+### Inside the project
 
-## Notes
+| Files | Purpose |
+| --- | --- |
+| `Pink-Riot-web-upload.webp` / `.png` | Ready for web upload; choose one |
+| `spritesheet.webp`, `spritesheet-v2.png`, `pet.json` | Extended v2: 57 animation frames, 16 gaze directions and neutral |
+| [preview.html](preview.html) | Interactive local viewer; download the repository ZIP, extract it, then open this file |
+| [Full atlas](spritesheet-v2.png) · [Gaze sheet](look-directions.png) | Inspect every pose |
+| `sources/` | Final RGBA frames, accepted source strips and canonical sprite; raster assets, not a layered rig |
+| `assets/` | Original approved master design; no third-party references |
+| [QA report](QA.md) · [SHA256SUMS](SHA256SUMS) | Checks, limitations and file checksums |
 
-The primary PNG/WebP web atlas is 1536 × 1872. The v2 atlas is 1536 × 2288 and is **not** the web upload file. Some intermediate diagonal look directions are subtly distinct. The final imported pet was tested by the creator in ChatGPT. The source material is raster artwork, not a Live2D or 3D rig.
+### Credits & permissions
 
-## Credits and usage
+**Created entirely using ChatGPT & Codex.** Character imagery, animations, assembly and QA were produced with these tools from the approved Pink Riot design.
 
-Character design, image assets, animations and assembly were created entirely with **ChatGPT**, including image generation and Codex-assisted production/QA. The original look is based on the creator-approved Pink Riot master sheet; third-party inspiration images are not included.
-
-**Please credit this repository if you share or modify Pink Riot.** No open-source license is granted by this repository until the creator chooses one; do not assume redistribution or commercial rights beyond the files explicitly shared here.
-
-This is an independent community project, not an official OpenAI release. ChatGPT is a trademark of OpenAI.
+No open-source license has been granted. See [license notice](LICENSE-NOTICE.md). This is an independent community project, not an official OpenAI product.

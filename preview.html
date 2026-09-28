@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pink Riot — предпросмотр</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui,sans-serif;color:#f9eaf2;background:#101015}*{box-sizing:border-box}body{max-width:1100px;margin:auto;padding:28px}h1{font-size:38px;margin:0;color:#ff77ad}p{color:#c7bac7}main{display:grid;grid-template-columns:1fr 320px;gap:24px;margin-top:24px}.stage{min-height:510px;display:flex;align-items:center;justify-content:center;border:1px solid #44313e;border-radius:20px;background:#24212a;touch-action:none}.stage.checker{background:repeating-conic-gradient(#e8e8e8 0 25%,#fff 0 50%) 0/32px 32px}.stage.light{background:#f5f0f3}.stage canvas{width:192px;height:208px}.stage.large canvas{width:384px;height:416px}aside{padding:20px;background:#201b24;border:1px solid #44313e;border-radius:20px}label{display:block;margin:14px 0 5px}select,button{font:inherit;color:inherit;background:#342936;border:1px solid #70516a;border-radius:8px;padding:9px;cursor:pointer}select{width:100%}button:hover{background:#56394e}.buttons{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}output{display:block;margin-top:18px;font-variant-numeric:tabular-nums;color:#ffabd0}.note{font-size:13px}a{color:#ffabd0}footer{margin-top:26px;color:#a89aa8;font-size:13px}@media(max-width:750px){main{grid-template-columns:1fr}.stage{min-height:430px}.stage.large canvas{width:288px;height:312px}}
+</style>
+<h1>Pink Riot</h1><p>Анимации и 16 направлений взгляда. Переключайте состояния, смотрите петли или проверяйте каждый кадр отдельно.</p>
+<main><div id="stage" class="stage"><canvas id="pet" width="192" height="208" aria-label="Анимированный персонаж Pink Riot"></canvas></div><aside>
+<label for="state">Состояние</label><select id="state"></select>
+<label for="speed">Скорость</label><select id="speed"><option value="1">Обычная</option><option value="0.5">½ — замедленно</option><option value="0.25">¼ — покадровая проверка</option></select>
+<label for="background">Фон</label><select id="background"><option value="">Тёмный</option><option value="light">Светлый</option><option value="checker">Шахматный</option></select>
+<label for="size">Размер</label><select id="size"><option value="">192 × 208 — размер ячейки</option><option value="large">Увеличенный ×2</option></select>
+<div class="buttons"><button id="pause">Пауза</button><button id="back">← Кадр</button><button id="next">Кадр →</button></div><output id="info">Загрузка атласа…</output>
+<p class="note">В режиме «За указателем» двигайте мышь внутри сцены. Около центра используется нейтральная поза. Предпросмотр читает финальный атлас без изменения кадров.</p></aside></main>
+<footer>Это локальный предпросмотр; он ничего не загружает в аккаунт. <a href="README.ru.md">Инструкция и результаты проверки</a>.</footer>
+<script>
+const states=[
+ ['Покой','idle',0,[280,110,110,140,140,320]],
+ ['Движение вправо','running-right',1,[120,120,120,120,120,120,120,220]],
+ ['Движение влево','running-left',2,[120,120,120,120,120,120,120,220]],
+ ['Приветствие','waving',3,[140,140,140,280]],
+ ['Прыжок','jumping',4,[140,140,140,140,280]],
+ ['Ошибка / огорчение','failed',5,[140,140,140,140,140,140,140,240]],
+ ['Ждёт ответа','waiting',6,[150,150,150,150,150,260]],
+ ['Работает / думает','running',7,[120,120,120,120,120,220]],
+ ['Просматривает результат','review',8,[150,150,150,150,150,280]],
+ ['Взгляд — полный круг','look',9,Array(16).fill(180)],
+ ['Взгляд — за указателем','pointer',9,Array(16).fill(180)]
+];
+const $=id=>document.getElementById(id),ctx=$('pet').getContext('2d'),atlas=new Image();
+let selected=0,frame=0,elapsed=0,last=0,paused=false,ready=false,neutral=true;
+states.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=s[0];$('state').append(o)});
+function paint(){if(!ready)return;let row=states[selected][2],col=frame;
+ if(selected>=9){row=9+Math.floor(frame/8);col=frame%8;if(selected===10&&neutral){row=0;col=6}}
+ ctx.clearRect(0,0,192,208);ctx.drawImage(atlas,col*192,row*208,192,208,0,0,192,208);
+ $('info').textContent=states[selected][0]+' · '+(selected>=9?(neutral&&selected===10?'нейтрально':(frame*22.5)+'°'):('кадр '+(frame+1)+' / '+states[selected][3].length));
+}
+function pause(value){paused=value;$('pause').textContent=paused?'Воспроизвести':'Пауза'}
+$('state').onchange=()=>{selected=+$('state').value;frame=0;elapsed=0;neutral=true;paint()};
+$('pause').onclick=()=>pause(!paused);
+function step(n){pause(true);neutral=false;const count=states[selected][3].length;frame=(frame+n+count)%count;paint()}
+$('back').onclick=()=>step(-1);$('next').onclick=()=>step(1);
+function appearance(){$('stage').className='stage '+$('background').value+' '+$('size').value}
+$('background').onchange=appearance;$('size').onchange=appearance;
+$('stage').onpointermove=e=>{if(selected!==10)return;const r=$('pet').getBoundingClientRect(),dx=e.clientX-r.left-r.width/2,dy=e.clientY-r.top-r.height/2;neutral=Math.hypot(dx,dy)<25;frame=Math.round(((Math.atan2(dx,-dy)*180/Math.PI+360)%360)/22.5)%16;paint()};
+$('stage').onpointerleave=()=>{if(selected===10){neutral=true;paint()}};
+function tick(t){if(last&&ready&&!paused&&selected!==10){elapsed+=(t-last)*+$('speed').value;const d=states[selected][3];while(elapsed>=d[frame]){elapsed-=d[frame];frame=(frame+1)%d.length}paint()}last=t;requestAnimationFrame(tick)}
+atlas.onload=()=>{ready=true;paint();requestAnimationFrame(tick)};atlas.onerror=()=>{$('info').textContent='Не удалось открыть spritesheet.webp. Держите файл рядом с preview.html.'};atlas.src='spritesheet.webp';
+</script></html>

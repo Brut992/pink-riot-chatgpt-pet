@@ -1,7 +1,5 @@
 # Changelog
 
-## v1.0.0 — 2026-09-28
-- Initial public release of the working Pink Riot ChatGPT Pet.
-- Nine animation states, 57 frames, 16 additional v2 look directions.
-- Web upload WebP/PNG, extended atlas, previews and raster source frames.
-- Cleaned cyan edge halo without changing alpha masks.
+## v1.0.0
+
+First complete public release: web upload files, extended v2 atlas, original master design, nine animated states,16 gaze directions, raster sources, local viewer and bilingual instructions. Creator-confirmed operation in ChatGPT.

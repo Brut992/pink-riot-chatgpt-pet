@@ -1,3 +1,3 @@
 # License notice
 
-No open-source license has been selected by the project owner yet. Repository visibility does not, by itself, grant permission to redistribute, sublicense or commercially reuse the artwork. Contact the repository owner about permissions. Original third-party reference images are not included.
+No open-source or artwork license has been granted. Public availability does not grant additional redistribution, adaptation or commercial-use rights. Ask the repository owner about permissions. No third-party reference images are included.
